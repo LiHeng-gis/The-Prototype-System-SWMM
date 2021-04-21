@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1259
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSWMM", "WebSWMM\WebSWMM.csproj", "{90DF7435-585D-4C07-A99A-F31A9F32F3FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90DF7435-585D-4C07-A99A-F31A9F32F3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90DF7435-585D-4C07-A99A-F31A9F32F3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90DF7435-585D-4C07-A99A-F31A9F32F3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90DF7435-585D-4C07-A99A-F31A9F32F3FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F1E3DA4-3FDD-4A0C-9085-A4263A764035}
+	EndGlobalSection
+EndGlobal
