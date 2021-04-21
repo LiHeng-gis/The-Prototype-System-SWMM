@@ -1,0 +1,55 @@
+﻿  climate.c
+  controls.c
+  culvert.c
+  dwflow.c
+  dynwave.c
+d:\swmm_x\resource\sourcecode4\dynwave.c(581): warning C4101: “yOld”: 未引用的局部变量
+  exfil.c
+  flowrout.c
+  forcmain.c
+  gage.c
+  gwater.c
+  hotstart.c
+  iface.c
+  infil.c
+  inflow.c
+  input.c
+  inputrpt.c
+  kinwave.c
+  landuse.c
+  lid.c
+  lidproc.c
+  正在编译...
+  link.c
+  main.c
+  massbal.c
+  node.c
+  output.c
+  project.c
+  qualrout.c
+  rain.c
+  rdii.c
+  report.c
+  roadway.c
+  routing.c
+  runoff.c
+  shape.c
+  snow.c
+  stats.c
+  statsrpt.c
+  subcatch.c
+  surfqual.c
+  swmm5.c
+  正在编译...
+  table.c
+  toposort.c
+  transect.c
+  treatmnt.c
+  xsect.c
+    正在创建库 D:\SWMM_x\Resource\sourcecode4\VS2017-DLL\Release\swmm5.lib 和对象 D:\SWMM_x\Resource\sourcecode4\VS2017-DLL\Release\swmm5.exp
+  正在生成代码
+  2 of 877 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  VS2017-DLL.vcxproj -> D:\SWMM_x\Resource\sourcecode4\VS2017-DLL\Release\swmm5.dll
