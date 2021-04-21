@@ -1,0 +1,544 @@
+{
+  "nodes": [
+    {
+      "id": "0",
+      "name": "Title 4",
+      "symbolSize": 19.12381,
+      "x": -266.82776,
+      "y": 299.6904,
+      "value": "Inundation analysis of metro systems with the storm water management model incorporated into a geographical information system: a case study in Shanghai.",
+      "category": 0
+    },
+
+    {
+      "id": "3",
+      "name": "Impact factor",
+      "symbolSize": 6.323809333333333,
+      "x": -242.82404,
+      "y": 235.26283,
+      "value": "7.491",
+      "category": 1
+    },
+    {
+      "id": "4",
+      "name": "DOI",
+      "symbolSize": 2.6666666666666665,
+      "x": -379.30386,
+      "y": 429.06424,
+      "value": "10.5194/hess-23-4293-2019",
+      "category": 0
+    },
+    {
+      "id": "5",
+      "name": "Impact factor",
+      "symbolSize": 2.6666666666666665,
+      "x": -417.26337,
+      "y": 406.03506,
+      "value": "5.46",
+      "category": 0
+    },
+    {
+      "id": "6",
+      "name": "Key words",
+      "symbolSize": 2.6666666666666665,
+      "x": -332.6012,
+      "y": 485.16974,
+      "value": "FLOOD RISK-ASSESSMENT · COUPLED HYDRODYNAMIC MODEL · CLIMATE-CHANGE IMPACTS · URBAN INUNDATION · LAND SUBSIDENCE · ROAD NETWORK · FLASH-FLOOD · CITY · OPTIMIZATION · URBANIZATION",
+      "category": 0
+    },
+    {
+      "id": "7",
+      "name": "Authors",
+      "symbolSize": 2.6666666666666665,
+      "x": -382.69568,
+      "y": 475.09113,
+      "value": "Hai-Min Lyu & Shui-Long Shen & Jun Yang & Zhen-Yu Yin",
+      "category": 0
+    },
+    {
+      "id": "8",
+      "name": "Journal",
+      "symbolSize": 2.6666666666666665,
+      "x": -320.384,
+      "y": 387.17325,
+      "value": "HYDROLOGY AND EARTH SYSTEM SCIENCES",
+      "category": 0
+    },
+
+    {
+      "id": "10",
+      "name": "DOI",
+      "symbolSize": 2.6666666666666665,
+      "x": -89.34107,
+      "y": 234.56128,
+      "value": "10.1016/j.jclepro.2019.03.028",
+      "category": 1
+    },
+    {
+      "id": "11",
+      "name": "Title 3",
+      "symbolSize": 66.66666666666667,
+      "x": -87.93029,
+      "y": -6.8120565,
+      "value": "Evaluating Green Stormwater Infrastructure strategies efficiencies in a rapidly urbanizing catchment using SWMM-based TOPSIS",
+      "category": 1
+    },
+
+    {
+      "id": "13",
+      "name": "Key words",
+      "symbolSize": 2.6666666666666665,
+      "x": -194.31313,
+      "y": 178.55301,
+      "value": "Gree stormwater infrastructure · Sustainable stormwater management · SWMM · TOPSIS · Sponge city · Scenario analysis",
+      "category": 1
+    },
+
+    {
+      "id": "15",
+      "name": "Authors",
+      "symbolSize": 2.6666666666666665,
+      "x": -127.701546,
+      "y": 242.55057,
+      "value": "Bo Luan & Ruixue Yin & Peng Xu & Xin Wang & Xiaomin Yang & Lan Zhang & Xiaoyan Tang",
+      "category": 1
+    },
+    {
+      "id": "16",
+      "name": "DOI",
+      "symbolSize": 17.295237333333333,
+      "x": -385.2226,
+      "y": -393.5572,
+      "value": "10.1016/j.envsoft.2018.09.022",
+      "category": 2
+    },
+
+    {
+      "id": "18",
+      "name": "Impact factor",
+      "symbolSize": 13.638097333333334,
+      "x": -464.79382,
+      "y": -493.57944,
+      "value": "5.317",
+      "category": 2
+    },
+    {
+      "id": "20",
+      "name": "Key words",
+      "symbolSize": 13.638097333333334,
+      "x": -408.12122,
+      "y": -464.5048,
+      "value": "Model uncertainty · Sensitivity analysis · Model performance · Sediment build-up and wash-off · SWMM model",
+      "category": 2
+    },
+    {
+      "id": "21",
+      "name": "Authors",
+      "symbolSize": 13.638097333333334,
+      "x": -456.44113,
+      "y": -425.13303,
+      "value": "Angela Gorgoglione & Fabián A. Bombardelli & Bruno J.L. Pitton & Lorence R. Oki & Darren L. Haver & Thomas M. Young",
+      "category": 2
+    },
+    {
+      "id": "22",
+      "name": "Journal",
+      "symbolSize": 13.638097333333334,
+      "x": -459.1107,
+      "y": -362.5133,
+      "value": "ENVIRONMENTAL MODELLING & SOFTWARE",
+      "category": 2
+    },
+    {
+      "id": "23",
+      "name": "Title 1",
+      "symbolSize": 28.266666666666666,
+      "x": -313.42786,
+      "y": -289.44803,
+      "value": "Uncertainty in the parameterization of sediment build-up and wash-off processes in the simulation of sediment transport in urban areas",
+      "category": 2
+    },
+
+    {
+      "id": "29",
+      "name": "Title 2",
+      "symbolSize": 15.466666666666667,
+      "x": -385.6842,
+      "y": -20.206686,
+      "value": "The transferability of SWMM model parameters between green roofs with similar build-up",
+      "category": 3
+    },
+
+    {
+      "id": "33",
+      "name": "Journal",
+      "symbolSize": 4.495239333333333,
+      "x": -234.6001,
+      "y": -113.15067,
+      "value":"JOURNAL OF CLEANER PRODUCTION",
+      "category": 1
+    },
+    {
+      "id": "34",
+      "name": "DOI",
+      "symbolSize": 11.809524666666666,
+      "x": -387.84915,
+      "y": 58.7059,
+      "value": "10.1016/j.jhydrol.2019.01.004",
+      "category": 3
+    },
+    {
+      "id": "35",
+      "name": "Impact factor",
+      "symbolSize": 11.809524666666666,
+      "x": -338.2307,
+      "y": 87.48405,
+      "value": "5.08",
+      "category": 3
+    },
+    {
+      "id": "36",
+      "name": "Key words",
+      "symbolSize": 11.809524666666666,
+      "x": -453.26874,
+      "y": 58.94648,
+      "value": "HYDROLOGICAL PERFORMANCE · TEST-BED · RUNOFF · VEGETATION · EVAPOTRANSPIRATION · SIMULATION; BEHAVIOR · COLD",
+      "category": 3
+    },
+    {
+      "id": "37",
+      "name": "Authors",
+      "symbolSize": 11.809524666666666,
+      "x": -386.44904,
+      "y": 140.05937,
+      "value":"Birgitte Gisvold Johannessen & Vladimír Hamouz & Ashenafi Seifu Gragne & Tone Merete Muthanna",
+      "category": 3
+    },
+    {
+      "id": "38",
+      "name": "Journal",
+      "symbolSize": 11.809524666666666,
+      "x": -446.7876,
+      "y": 123.38005,
+      "value": "JOURNAL OF HYDROLOGY",
+      "category": 3
+    },
+  {
+      "id": "100",
+      "name": "Title 5",
+      "symbolSize": 19.12381,
+      "x": -266.82776,
+      "y": 299.6904,
+      "value": "Runoff simulation of two typical urban green land types with the Stormwater Management Model (SWMM): sensitivity analysis and calibration of runoff parameters.",
+      "category": 4
+    },
+    {
+      "id": "101",
+      "name": "DOI",
+      "symbolSize": 19.12381,
+      "x": -266.82776,
+      "y": 299.6904,
+      "value": "10.1007/s10661-019-7445-9",
+      "category": 4
+    },
+    {
+      "id": "102",
+      "name": "Impact factor",
+      "symbolSize": 19.12381,
+      "x": -266.82776,
+      "y": 299.6904,
+      "value": "2.273",
+      "category": 4
+    },
+    {
+      "id": "103",
+      "name": "Kew words",
+      "symbolSize": 19.12381,
+      "x": -266.82776,
+      "y": 299.6904,
+      "value": "Green land · Rainfall · Runoff · Parameter sensitivity · SWMM",
+      "category": 4
+    },
+    {
+      "id": "104",
+      "name": "Authors",
+      "symbolSize": 19.12381,
+      "x": -266.82776,
+      "y": 299.6904,
+      "value": "Zuxin Xu & Lijun Xiong & Huaizheng Li & Jin Xu & Xin Cai & Keli Chen & Jun Wu",
+      "category": 4
+    },
+    {
+      "id": "105",
+      "name": "Journal",
+      "symbolSize": 19.12381,
+      "x": -266.82776,
+      "y": 299.6904,
+      "value": "ENVIRONMENTAL MONITORING AND ASSESSMENT",
+      "category": 4
+    }
+  ],
+  "links": [
+    {
+      "source": "100",
+      "target": "0"
+    },
+    {
+      "source": "101",
+      "target": "100"
+    },
+    {
+      "source": "102",
+      "target": "100"
+    },
+    {
+      "source": "103",
+      "target": "100"
+    },
+    {
+      "source": "104",
+      "target": "100"
+    },
+    {
+      "source": "105",
+      "target": "100"
+    },
+ {
+      "source": "3",
+      "target": "0"
+    },
+
+    {
+      "source": "4",
+      "target": "0"
+    },
+    {
+      "source": "5",
+      "target": "0"
+    },
+    {
+      "source": "6",
+      "target": "0"
+    },
+    {
+      "source": "7",
+      "target": "0"
+    },
+    {
+      "source": "8",
+      "target": "0"
+    },
+    {
+      "source": "11",
+      "target": "0"
+    },
+    {
+      "source": "11",
+      "target": "2"
+    },
+    {
+      "source": "11",
+      "target": "3"
+    },
+    {
+      "source": "11",
+      "target": "10"
+    },
+    {
+      "source": "13",
+      "target": "11"
+    },
+
+    {
+      "source": "15",
+      "target": "11"
+    },
+
+    {
+      "source": "18",
+      "target": "16"
+    },
+
+    {
+      "source": "20",
+      "target": "16"
+    },
+
+    {
+      "source": "20",
+      "target": "18"
+    },
+
+    {
+      "source": "21",
+      "target": "16"
+    },
+
+    {
+      "source": "21",
+      "target": "18"
+    },
+
+    {
+      "source": "21",
+      "target": "20"
+    },
+    {
+      "source": "22",
+      "target": "16"
+    },
+
+    {
+      "source": "22",
+      "target": "18"
+    },
+
+    {
+      "source": "22",
+      "target": "20"
+    },
+    {
+      "source": "22",
+      "target": "21"
+    },
+    {
+      "source": "23",
+      "target": "11"
+    },
+
+    {
+      "source": "23",
+      "target": "16"
+    },
+
+    {
+      "source": "23",
+      "target": "18"
+    },
+
+    {
+      "source": "23",
+      "target": "20"
+    },
+    {
+      "source": "23",
+      "target": "21"
+    },
+    {
+      "source": "23",
+      "target": "22"
+    },
+    {
+      "source": "29",
+      "target": "11"
+    },
+    {
+      "source": "29",
+      "target": "23"
+    },
+    {
+      "source": "33",
+      "target": "11"
+    },
+    {
+      "source": "34",
+      "target": "11"
+    },
+    {
+      "source": "34",
+      "target": "29"
+    },
+    {
+      "source": "35",
+      "target": "11"
+    },
+    {
+      "source": "35",
+      "target": "29"
+    },
+    {
+      "source": "35",
+      "target": "34"
+    },
+    {
+      "source": "36",
+      "target": "11"
+    },
+    {
+      "source": "36",
+      "target": "29"
+    },
+    {
+      "source": "36",
+      "target": "34"
+    },
+    {
+      "source": "36",
+      "target": "35"
+    },
+    {
+      "source": "37",
+      "target": "11"
+    },
+    {
+      "source": "37",
+      "target": "29"
+    },{
+      "source": "37",
+      "target": "34"
+    },
+    {
+      "source": "37",
+      "target": "35"
+    },
+    {
+      "source": "37",
+      "target": "36"
+    },
+    {
+      "source": "38",
+      "target": "11"
+    },
+    {
+      "source": "38",
+      "target": "29"
+    },
+    {
+      "source": "38",
+      "target": "34"
+    },
+    {
+      "source": "38",
+      "target": "35"
+    },
+    {
+      "source": "38",
+      "target": "36"
+    },
+    {
+      "source": "38",
+      "target": "37"
+    },
+    {
+      "source": "0",
+      "target": "23"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Literature 1"
+    },
+    {
+      "name": "Literature 2"
+    },
+    {
+      "name": "Literature 3"
+    },
+    {
+      "name": "Literature 4"
+    },
+    {
+      "name": "Literature 5"
+    }
+  ]
+}

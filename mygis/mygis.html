@@ -1,0 +1,1692 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.0.1/dist/echarts.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>MyGIS</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/css/main.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/style.js"></script>
+    <style>
+        html,
+        body
+        {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+        #viewDiv
+        {
+            padding: 0px;
+            margin: 0px;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            box-shadow: 0 0 5px #14d7ea; padding:0px
+        }
+        #SKG
+        {
+
+
+            background: linear-gradient(to left, #14d7ea, #14d7ea) left top no-repeat,
+            linear-gradient(to bottom, #14d7ea, #14d7ea) left top no-repeat,
+            linear-gradient(to left, #14d7ea, #14d7ea) right top no-repeat,
+            linear-gradient(to bottom, #14d7ea, #14d7ea) right top no-repeat,
+            linear-gradient(to left, #14d7ea, #14d7ea) left bottom no-repeat,
+            linear-gradient(to bottom, #14d7ea, #14d7ea) left bottom no-repeat,
+            linear-gradient(to left, #14d7ea, #14d7ea) right bottom no-repeat,
+            linear-gradient(to left, #14d7ea, #14d7ea) right bottom no-repeat;
+            background-size: 3px 30px, 30px 3px, 3px 30px, 30px 3px,3px 30px, 30px 3px, 3px 30px, 30px 3px;
+        }
+        #DAC
+        {
+            background: linear-gradient(to left, #14d7ea, #14d7ea) left top no-repeat,
+            linear-gradient(to bottom, #14d7ea, #14d7ea) left top no-repeat,
+            linear-gradient(to left, #14d7ea, #14d7ea) right top no-repeat,
+            linear-gradient(to bottom, #14d7ea, #14d7ea) right top no-repeat,
+            linear-gradient(to left, #14d7ea, #14d7ea) left bottom no-repeat,
+            linear-gradient(to bottom, #14d7ea, #14d7ea) left bottom no-repeat,
+            linear-gradient(to left, #14d7ea, #14d7ea) right bottom no-repeat,
+            linear-gradient(to left, #14d7ea, #14d7ea) right bottom no-repeat;
+            background-size: 3px 30px, 30px 3px, 3px 30px, 30px 3px,3px 30px, 30px 3px, 3px 30px, 30px 3px;
+
+
+
+        }
+
+
+    </style>
+
+
+    <script>
+        require([
+            "esri/WebScene",
+            "esri/views/MapView",
+            "esri/views/SceneView",
+            "esri/layers/FeatureLayer",
+            "esri/layers/GeoJSONLayer",
+            "esri/widgets/Expand",
+            "esri/widgets/AreaMeasurement3D",
+            "esri/widgets/CoordinateConversion",
+            "esri/widgets/TimeSlider"
+        ], function(WebScene, MapView,SceneView,FeatureLayer,GeoJSONLayer,Expand,AreaMeasurement3D,CoordinateConversion,TimeSlider) {
+
+            var Linksymbol = {
+                type: "line-3d",  // autocasts as new LineSymbol3D()
+                symbolLayers: [{
+                   type: "path",  // autocasts as new PathSymbol3DLayer()
+                    profile: "circle",
+                    width: 20,    // width of the tube in meters
+                    cap: "butt",
+                    join:"round",
+                    material: {
+                       color: "rgba(243,243,243,0.45)"
+                    }
+                }]
+            };
+            var Nodesymbol = {
+                type: "point-3d", // autocasts as new PointSymbol3D()
+                symbolLayers: [{
+                        type: "object", // autocasts as new IconSymbol3DLayer()
+                        width:9,
+                        height:9,
+                        depth:9,
+                        resource: {
+                            primitive: "cylinder"
+                        },
+                        material: {
+                            color: "#09d2f6"
+                        }
+                    }
+                ]
+            };
+
+           // var featureLayer = new FeatureLayer({
+              // url:
+                  //  "http://localhost:6080/arcgis/rest/services/mygis/FeatureServer/0"
+            //});
+            //featureLayer.renderer = {
+              //  type: "simple",  // autocasts as new SimpleRenderer()
+              //  symbol:symbol
+           // };
+            var template = {
+                // autocasts as new PopupTemplate()
+                title: "{name}",
+                content: [
+                    {
+                        // It is also possible to set the fieldInfos outside of the content
+                        // directly in the popupTemplate. If no fieldInfos is specifically set
+                        // in the content, it defaults to whatever may be set within the popupTemplate.
+                        type: "fields",
+                        fieldInfos: [
+                            {
+                                fieldName: "length",
+                                label: "Length"
+                            },
+                            {
+                                fieldName: "inlet",
+                                label: "Inlet",
+                                format: {
+                                    digitSeparator: true,
+                                    places: 0
+                                }
+                            },
+                            {
+                                fieldName: "outlet",
+                                label: "Outlet",
+                                format: {
+                                    digitSeparator: true,
+                                    places: 0
+                                }
+                            },
+                            {
+                                fieldName: "type",
+                                label: "Shape",
+                                format: {
+                                    digitSeparator: true,
+                                    places: 0
+                                }
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            const layer = new GeoJSONLayer({
+                url: "json/sc_links.json",
+                popupTemplate: template
+
+            });
+            layer.renderer = {
+                type:"simple",
+                symbol:Linksymbol
+            };
+            const layer1 = new GeoJSONLayer({
+                url: "json/sc_nodes.json"
+
+            });
+            layer1.renderer = {
+                type:"simple",
+                symbol:Nodesymbol
+            };
+            const layer2 = new GeoJSONLayer({
+                url: "json/urban_fir_roads.json"
+
+            });
+            layer2.renderer = {
+                type:"simple",
+                symbol:Linksymbol
+            };
+            const layer3 = new GeoJSONLayer({
+                url: "json/urban_sec_roads.json"
+
+            });
+            layer3.renderer = {
+                type:"simple",
+                symbol:Linksymbol
+            };
+            const layer4 = new GeoJSONLayer({
+                url: "json/urban_guo_roads.json"
+
+            });
+            layer4.renderer = {
+                type:"simple",
+                symbol:Linksymbol
+            };
+
+            const webscene = new WebScene({
+                //basemap: "dark-gray-vector",
+                basemap: "satellite",
+                ground: "world-elevation"
+            });
+            webscene.add(layer);
+            webscene.add(layer1);
+            webscene.add(layer2);
+            webscene.add(layer3);
+            webscene.add(layer4);
+
+            var view = new SceneView({
+                container: "viewDiv",
+                map: webscene,
+                scale: 500000,
+                center: [106.0862, 30.813]
+            });
+
+            var timeSlider = new TimeSlider({
+                container: "timeslider",
+                view: view,
+                // show data within a given time range
+                // in this case data within one year
+                mode: "instant",
+                loop:true,
+                playRate: 5000,
+                timeVisible: true,
+                fullTimeExtent: { // entire extent of the timeSlider
+                    start: new Date(2020, 5, 27,7),
+                    end: new Date(2020, 5, 28,5)
+                },
+                values:[ // location of timeSlider thumbs
+                    new Date(2020, 5, 27,7),
+                    new Date(2020, 5, 27,7)
+                ],
+                stops: {
+                    interval: {
+                        value: 1,
+                        unit: "hours"
+                    }
+
+                }
+            });
+
+            var i=0;
+            function changerenderer(){
+
+
+                if(i == 1){
+
+                    layer.renderer = {
+                        type:"simple",
+                        symbol:Linksymbol
+                    };
+                    layer2.renderer = {
+                        type:"simple",
+                        symbol:Linksymbol
+                    };
+                    layer3.renderer = {
+                        type:"simple",
+                        symbol:Linksymbol
+                    };
+                    layer4.renderer = {
+                        type:"simple",
+                        symbol:Linksymbol
+                    };
+
+                }
+                else  if( i == 2)
+                {
+
+                        var symbol1 = {
+                            type: "line-3d",  // autocasts as new LineSymbol3D()
+                            symbolLayers: [{
+                                type: "path",  // autocasts as new PathSymbol3DLayer()
+                                profile: "circle",
+                                width: 20,    // width of the tube in meters
+                                material: { color: "#f95353" }
+                            }]
+                        };
+                        var symbol2 = {
+                            type: "line-3d",  // autocasts as new LineSymbol3D()
+                            symbolLayers: [{
+                                type: "path",  // autocasts as new PathSymbol3DLayer()
+                                profile: "circle",
+                                width: 20,    // width of the tube in meters
+                                material: { color: "#f9e353" }
+                            }]
+                        };
+                        var symbol3 = {
+                            type: "line-3d",  // autocasts as new LineSymbol3D()
+                            symbolLayers: [{
+                                type: "path",  // autocasts as new PathSymbol3DLayer()
+                                profile: "circle",
+                                width: 20,    // width of the tube in meters
+                                material: { color: "#64f953" }
+                            }]
+                        };
+                        var symbol4 = {
+                        type: "line-3d",  // autocasts as new LineSymbol3D()
+                        symbolLayers: [{
+                            type: "path",  // autocasts as new PathSymbol3DLayer()
+                            profile: "circle",
+                            width: 20,    // width of the tube in meters
+                            material: { color: "#0efff7" }
+                        }]
+                    };
+                    var symbol5 = {
+                        type: "line-3d",  // autocasts as new LineSymbol3D()
+                        symbolLayers: [{
+                            type: "path",  // autocasts as new PathSymbol3DLayer()
+                            profile: "circle",
+                            width: 20,    // width of the tube in meters
+                            material: { color: "rgb(83,128,250)" }
+                        }]
+                    };
+                    var symbol6 = {
+                        type: "line-3d",  // autocasts as new LineSymbol3D()
+                        symbolLayers: [{
+                            type: "path",  // autocasts as new PathSymbol3DLayer()
+                            profile: "circle",
+                            width: 20,    // width of the tube in meters
+                            material: { color: "rgba(243,243,243,0.45)" }
+                        }]
+                    };
+
+                        var renderer = {
+                            type: "unique-value",  // autocasts as new UniqueValueRenderer()
+                            field: "nine",
+                            defaultSymbol: { type: "line-3d" },  // autocasts as new SimpleFillSymbol()
+                            uniqueValueInfos: [{
+                                // All features with value of "North" will be blue
+                                value: "1",
+                                symbol: symbol1
+                            }, {
+
+                                value: "2",
+                                symbol: symbol2
+                            }, {
+
+                                value: "3",
+                                symbol: symbol3
+                            }, {
+
+                                value: "4",
+                                symbol: symbol4
+                            }, {
+
+                                value: "5",
+                                symbol: symbol5
+                            }, {
+
+                                value: "null",
+                                symbol: symbol6
+                            }
+                            ]
+                        };
+                        layer.renderer = renderer;
+                        layer2.renderer = renderer;
+                        layer3.renderer = renderer;
+                        layer4.renderer = renderer;
+                }
+                else{
+                    layer.renderer = {
+                        type:"simple",
+                        symbol:Linksymbol
+                    };
+                    layer2.renderer = {
+                        type:"simple",
+                        symbol:Linksymbol
+                    };
+                    layer3.renderer = {
+                        type:"simple",
+                        symbol:Linksymbol
+                    };
+                    layer4.renderer = {
+                        type:"simple",
+                        symbol:Linksymbol
+                    };
+                }
+
+
+
+            };
+            timeSlider.watch("timeExtent", function(){
+
+
+                if(i<22){
+                    i++;
+                    changerenderer();
+
+                }
+                else
+                {
+                    i=0;
+                }
+            });
+
+
+            //var measurementWidget = new AreaMeasurement3D({
+                //view: view
+            //});
+            ///var ccWidget = new CoordinateConversion({
+               // view: view
+           // });
+
+
+            var MenuExpand = new Expand({
+                expandIconClass:"esri-icon-globe",
+                view: view,
+                content: document.getElementById("menu")
+            });
+            view.ui.remove('zoom')//清除放大缩小按钮
+            view.ui.remove('attribution')//清楚底部powered by ESRI
+            //view.ui.add(measurementWidget, "top-left");
+            //view.ui.add(ccWidget, "bottom-left");
+            view.ui.add(MenuExpand, "top-left");
+            view.ui.add(timeSlider, "manual");
+
+
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        function openSPP(){
+            document.getElementById("SPP").style.display = 'block';
+
+        }
+        function closeSPP(){
+
+            document.getElementById("SPP").style.display = 'none';
+
+        }
+        function openSNP(){
+            document.getElementById("SNP").style.display = 'block';
+            document.getElementById("timeslider").style.display = 'block';
+        }
+        function closeSNP(){
+
+            document.getElementById("SNP").style.display='none';
+            document.getElementById("timeslider").style.display = 'none';
+
+        }
+        function run(){
+
+            alert("Run was seccessful.");
+
+
+        }
+
+
+    </script>
+
+
+</head>
+
+<body>
+<!-- top container -->
+<div style="background-color: #000000;width:100%;height:50px;position:absolute;top: 0px;padding: 0px;margin: 0px">
+    <img  src="images/CUGB+.png" alt="Loading" width="50" height="50">
+    <span style="color: rgb(255 255 255);opacity: 70%;font-size: 24px;position: absolute;top: 19px;left: 75px"> The Prototype System-SWMM </span>
+</div>
+<!-- container -->
+<div style="position: absolute;padding: 0px;margin: 0px;height: 100%;width: 100%;top: 51px;box-shadow: 0 0 5px #14d7ea;">
+    <!-- Map container -->
+    <div id="viewDiv"></div>
+    <!-- SKG container -->
+    <div id="SKG" style="position: absolute;top: 5px;right: 5px;height: 470px;width: 670px;box-shadow: 0 0 5px #14d7ea;color: white">
+        <span style="position: absolute;left: 5px;top: 5px;color: white;background-color: #14d7ea;-webkit-border-radius: 5px;border-radius: 5px;width: 160px;height: 25px;text-align: center;border-style: solid;border-width: 3px;border-color: #3761c3">
+            Knowledge Graphs
+        </span>
+        <select style="position: absolute;top: 5px;right: 5px;width: 135px" onchange="update_graph(this.value)">
+            <option>Ontology Diagram</option>
+            <option>Literature Information</option>
+            <option>Parameter Meaning</option>
+            <option>Modeling Scheme</option>
+            <option>Simulation Scheme</option>
+            <option>Result Evaluation</option>
+        </select>
+        <div id="kgs" style="position: absolute;top: 40px;left: 5px;height: 420px;width: 660px; background-color: rgba(226, 241, 251, 0.31); border-radius: 5px"></div>
+    </div>
+    <!-- DAC container -->
+    <div id="DAC" style="position: absolute;bottom: 55px;right: 5px;height: 380px;width: 670px;box-shadow: 0 0 5px #14d7ea;color: white">
+        <span style="position: absolute;left: 5px;top: 5px;color: white;background-color: #14d7ea;-webkit-border-radius: 5px;border-radius: 5px;width: 160px;height: 25px;text-align: center;border-style: solid;border-width: 3px;border-color: #3761c3">
+            Data Analysis Charts
+        </span>
+        <select style="position: absolute;top: 5px;right: 5px;width: 70px">
+            <option>None</option>
+            <option>G00001</option>
+            <option>G00002</option>
+            <option>G00003</option>
+            <option>G00004</option>
+            <option>G00173</option>
+            <option>G00223</option>
+            <option>......</option>
+        </select>
+        <div id="echarts" style="position: absolute;top: 40px;left: 5px;height: 330px;width: 660px;background-color: #e2f1fb4f;-webkit-border-radius: 5px;border-radius: 5px"></div>
+    </div>
+    <!-- SPP container -->
+    <div id="SPP" style="position: absolute;top: 80px;left: 150px;height: 680px;width: 300px;background-color:#f3f3f3;-webkit-border-radius: 4px;border-radius: 4px;box-shadow: 0 0 30px #2e2e2e;display: none;">
+        <span style="position: absolute;height: 50px;width: 300px;background-color:#6e6e6e;border-radius: 3px;box-shadow: 0 0 3px #2e2e2e">
+            <p style="position: absolute;color:#f3f3f3;left: 100px;font-weight: 500">Main Panel</p>
+            <span style="position: absolute;top: 5px;right: 5px;" onclick="closeSPP()">×</span>
+        </span>
+        <div id="Links" style="position: absolute;top: 65px;height: 180px;width: 280px;left: 10px;background-color:#f3f3f3;box-shadow:0 0 2px #2e2e2e;border-radius: 2px;overflow :auto">
+            <span style="position:absolute;height: 25px;width: 280px;background-color:#49b0f2a8;box-shadow:0 0 2px #3b3b3b;">Conduits:</span>
+
+            <span style="position:absolute;top: 29px;left: 3px">ID:</span>
+            <select style="position: absolute;top: 31px;left: 30px">
+                <option>G00001</option>
+                <option>G00002</option>
+                <option>G00003</option>
+                <option>G00004</option>
+                <option>G00006</option>
+                <option>G00007</option>
+                <option>G00008</option>
+                <option>...</option>
+            </select>
+            <span style="position:absolute;top: 29px;right:100px;">Tag:</span>
+            <input type="text" placeholder="Please enter" style="position: absolute;right: 3px;top: 31px;width:92px">
+
+            <span style="position:absolute;top: 60px;left: 3px">InN:</span>
+            <input type="text" placeholder="Please enter" style="position: absolute;left: 40px;top: 60px;width:62px">
+            <span style="position:absolute;top: 60px;right:100px">OutN:</span>
+            <input type="text" placeholder="Please enter" style="position: absolute;right: 3px;top: 60px;width:92px">
+
+            <span style="position:absolute;top: 88px;left: 3px">InS:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left: 40px;top: 88px;width:62px">
+            <span style="position:absolute;top: 88px;right:100px">OutS:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;right:3px;top: 88px;width:92px">
+
+            <span style="position:absolute;top: 116px;left: 3px">Shape:</span>
+            <select style="position: absolute;top: 116px;left: 59px;width: 43px">
+                <option>Circular</option>
+                <option>Rectangular</option>
+                <option>Arch</option>
+                <option>...</option>
+            </select>
+            <span style="position:absolute;top: 116px;right: 100px">MaxD:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;right:3px;top: 116px;width:92px">
+
+            <span style="position:absolute;top: 142px;left: 3px">Length:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left:65px;top: 142px;width:37px">
+            <span style="position:absolute;top: 142px;right: 100px">Rough:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;right:3px;top: 142px;width:92px">
+
+            <span style="position:absolute;top: 170px;left: 3px">Material :</span>
+            <select style="position: absolute;top: 172px;left: 80px">
+                <option>CEMENT</option>
+                <option>BRICK</option>
+                <option>IRON</option>
+                <option>CONCRETE</option>
+                <option>METAL</option>
+                <option>PLASTIC</option>
+                <option>CLAY</option>
+            </select>
+
+
+
+
+
+
+
+
+        </div>
+        <div id="Nodes" style="position: absolute;top: 260px;height: 180px;width: 280px;left: 10px;background-color:#f3f3f3;box-shadow:0 0 2px #2e2e2e;border-radius: 2px;overflow :auto">
+            <span style="position:absolute;height: 25px;width: 280px;background-color:#49b0f2a8;box-shadow:0 0 2px #3b3b3b;">Nodes:</span>
+
+            <span style="position:absolute;top: 29px;left: 3px">ID:</span>
+            <select style="position: absolute;top: 31px;left: 30px">
+                <option>J00001</option>
+                <option>J00002</option>
+                <option>J00003</option>
+                <option>J00004</option>
+                <option>J00006</option>
+                <option>J00007</option>
+                <option>J00008</option>
+                <option>...</option>
+            </select>
+            <span style="position:absolute;top: 29px;right:100px;">Tag:</span>
+            <input type="text" placeholder="Please enter" style="position: absolute;right: 3px;top: 31px;width:92px">
+
+            <span style="position:absolute;top: 60px;left: 3px">X-C:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left: 40px;top: 60px;width:62px">
+            <span style="position:absolute;top: 60px;right:100px">Y-C:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;right: 3px;top: 60px;width:92px">
+
+            <span style="position:absolute;top: 88px;left: 3px">Lnvert.EI:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left: 78px;top: 88px;width:93px">
+            <span style="position:absolute;top: 115px;left:3px">MaxD:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left: 58px;top: 115px;width:113px">
+
+
+
+        </div>
+        <div id="Subcatchments" style="position: absolute;top: 455px;height: 180px;width: 280px;left: 10px;background-color:#f3f3f3;box-shadow:0 0 2px #2e2e2e;border-radius: 2px;overflow :auto;">
+            <span style="position:absolute;height: 25px;width: 280px;background-color:#49b0f2a8;box-shadow:0 0 2px #3b3b3b;">Subcatchments:</span>
+
+            <span style="position:absolute;top: 29px;left: 3px">ID:</span>
+            <select style="position: absolute;top: 31px;left: 30px">
+                <option>ZMJ01</option>
+                <option>ZMJ02</option>
+                <option>ZMJ03</option>
+                <option>ZMJ04</option>
+                <option>ZMJ05</option>
+                <option>ZMJ06</option>
+                <option>ZMJ07</option>
+                <option>...</option>
+            </select>
+            <span style="position:absolute;top: 29px;right:100px;">Tag:</span>
+            <input type="text" placeholder="Please enter" style="position: absolute;right: 3px;top: 31px;width:92px">
+
+            <span style="position:absolute;top: 60px;left: 3px">Area:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left: 43px;top: 60px;width:59px">
+            <span style="position:absolute;top: 60px;right:100px">Outl:</span>
+            <input type="text" placeholder="Please enter" style="position: absolute;right: 3px;top: 60px;width:92px">
+
+            <span style="position:absolute;top: 88px;left: 3px">Width:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left: 59px;top: 88px;width:43px">
+            <span style="position:absolute;top: 88px;right:100px">%Slope:</span>
+            <input type="text" placeholder="Please enter" style="position: absolute;right:3px;top: 88px;width:92px">
+
+            <span style="position:absolute;top: 116px;left: 3px">%imperv:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;top: 116px;left: 79px;width: 43px">
+            <span style="position:absolute;top: 116px;right: 60px">N-imperv:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;right:3px;top: 116px;width:52px">
+
+            <span style="position:absolute;top: 142px;left: 3px">D-perv:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left:65px;top: 142px;width:37px">
+            <span style="position:absolute;top: 142px;right: 60px">D-imperv:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;right:3px;top: 142px;width:52px">
+
+            <span style="position:absolute;top: 170px;left: 3px">X-C:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left: 40px;top: 170px;width:62px">
+            <span style="position:absolute;top: 170px;right:100px">Y-C:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;right: 3px;top: 170px;width:92px">
+
+            <span style="position:absolute;top: 198px;left: 3px">N-perv:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;left: 65px;top: 198px;width:37px">
+            <span style="position:absolute;top: 198px;right:60px">%Z-imperv:</span>
+            <input type="number" placeholder="Please enter" style="position: absolute;right: 3px;top: 198px;width:52px">
+
+            <span style="position:absolute;top: 226px;left: 3px">SR:</span>
+            <select style="position: absolute;top: 228px;left: 30px">
+                <option>OUTLET</option>
+                <option>IMPERVIOUS</option>
+                <option>PERVIOUS</option>
+            </select>
+            <span style="position:absolute;top: 254px;left: 3px">IM:</span>
+            <select style="position: absolute;top: 256px;left: 30px">
+                <option>GREEN_AMPT</option>
+                <option>M_GREEN_AMPT</option>
+                <option>HORTON</option>
+                <option>M_HORTON</option>
+            </select>
+
+
+
+
+        </div>
+        <button type="button" style="position: absolute;bottom: 5px;left: 10px">MoreDetails</button>
+        <button type="button" style="position: absolute;bottom: 5px;left: 190px">Cancel</button>
+        <button id="run" type="button" style="position: absolute;bottom: 5px;right: 10px" onclick="run()">Run</button>
+    </div>
+    <!-- SNP container -->
+    <div id="SNP" style="position: absolute;top: 80px;left: 150px;height: 500px;width: 384px;background-color:#f3f3f3;-webkit-border-radius: 4px;border-radius: 4px;box-shadow: 0 0 30px #2e2e2e;display: none">
+        <span style="position: absolute;height: 50px;width: 384px;background-color:#6e6e6e;border-radius: 3px;box-shadow: 0 0 3px #2e2e2e">
+            <p style="position: absolute;color:#f3f3f3;left: 150px;font-weight: 500">Main Panel</p>
+            <span style="position: absolute;top: 5px;right: 5px;" onclick="closeSNP()">×</span>
+        </span>
+        <div id="rpt" style="position: absolute;top: 65px;height: 300px;width: 360px;left: 12px;background-color:#f3f3f3;box-shadow:0 0 2px #2e2e2e;border-radius: 2px;">
+            <span style="position:absolute;height: 25px;width: 360px;background-color:#49b0f2a8;box-shadow:0 0 2px #3b3b3b;">SWMM Status Report:</span>
+            <div style="position: absolute;top:25px; width: 360px;height:275px;overflow :auto">
+                <div style="position: absolute;top: 1px;left: 1px">Junction overload summary :
+                    <span style="position: absolute;top: 22px;left: 1px">J00054</span>
+                    <span style="position: absolute;top: 43px;left: 1px">J00055</span>
+                    <span style="position: absolute;top: 64px;left: 1px">J00109</span>
+                    <span style="position: absolute;top: 85px;left: 1px">J00110</span>
+                    <span style="position: absolute;top: 106px;left: 1px">J00115</span>
+                    <span style="position: absolute;top: 127px;left: 1px">J00116</span>
+                    <span style="position: absolute;top: 148px;left: 1px">J00153</span>
+                    <span style="position: absolute;top: 169px;left: 1px">J00154</span>
+                    <span style="position: absolute;top: 190px;left: 1px">J00155</span>
+                    <span style="position: absolute;top: 211px;left: 1px">J00156</span>
+                    <span style="position: absolute;top: 232px;left: 1px">J00157</span>
+                    <span style="position: absolute;top: 253px;left: 1px">J00158</span>
+                    <span style="position: absolute;top: 274px;left: 1px">J00159</span>
+                    <span style="position: absolute;top: 295px;left: 1px">J00160</span>
+                    <span style="position: absolute;top: 316px;left: 1px">J00161</span>
+                    <span style="position: absolute;top: 337px;left: 1px">J00162</span>
+                    <span style="position: absolute;top: 358px;left: 1px">J00164</span>
+                    <span style="position: absolute;top: 379px;left: 1px">J00165</span>
+                    <span style="position: absolute;top: 400px;left: 1px">J00166</span>
+                    <span style="position: absolute;top: 421px;left: 1px">J00167</span>
+                    <span style="position: absolute;top: 442px;left: 1px">J00192</span>
+                    <span style="position: absolute;top: 463px;left: 1px">J00193</span>
+                    <span style="position: absolute;top: 484px;left: 1px">J00195</span>
+                    <span style="position: absolute;top: 505px;left: 1px">J00197</span>
+                    <span style="position: absolute;top: 526px;left: 1px">J00198</span>
+                    <span style="position: absolute;top: 547px;left: 1px">J00199</span>
+                    <span style="position: absolute;top: 568px;left: 1px">J00200</span>
+                    <span style="position: absolute;top: 589px;left: 1px">J00202</span>
+                    <span style="position: absolute;top: 610px;left: 1px">J00203</span>
+                    <span style="position: absolute;top: 631px;left: 1px">J00296</span>
+                    <span style="position: absolute;top: 652px;left: 1px">J00382</span>
+                    <span style="position: absolute;top: 673px;left: 1px">J00383</span>
+                    <span style="position: absolute;top: 694px;left: 1px">J00405</span>
+                    <span style="position: absolute;top: 715px;left: 1px">J00518</span>
+                    <span style="position: absolute;top: 736px;left: 1px">J00519</span>
+                    <span style="position: absolute;top: 757px;left: 1px">J00570</span>
+                    <span style="position: absolute;top: 778px;left: 1px">J00571</span>
+                    <span style="position: absolute;top: 799px;left: 1px">J00572</span>
+                    <span style="position: absolute;top: 820px;left: 1px">J00586</span>
+                    <span style="position: absolute;top: 841px;left: 1px">J00587</span>
+                    <span style="position: absolute;top: 862px;left: 1px">J00618</span>
+                    <span style="position: absolute;top: 883px;left: 1px">J00619</span>
+                    <span style="position: absolute;top: 904px;left: 1px">J00631</span>
+                    <span style="position: absolute;top: 925px;left: 1px">J00632</span>
+                    <span style="position: absolute;top: 946px;left: 1px">J00634</span>
+                    <span style="position: absolute;top: 967px;left: 1px">J00636</span>
+                    <span style="position: absolute;top: 988px;left: 1px">J00638</span>
+                    <span style="position: absolute;top: 1009px;left: 1px">J00640</span>
+                    <span style="position: absolute;top: 1030px;left: 1px">J00641</span>
+                    <span style="position: absolute;top: 1051px;left: 1px">J00642</span>
+                    <span style="position: absolute;top: 1072px;left: 1px">J00643</span>
+                    <span style="position: absolute;top: 1093px;left: 1px">J00646</span>
+                    <span style="position: absolute;top: 1114px;left: 1px">J00648</span>
+                    <span style="position: absolute;top: 1135px;left: 1px">J00649</span>
+                </div>
+                <div style="position: absolute;top: 1156px;left: 1px">Links overload summary :
+                    <span style="position: absolute;top: 22px;left: 1px">G00051</span>
+                    <span style="position: absolute;top: 43px;left: 1px">G00136</span>
+                    <span style="position: absolute;top: 64px;left: 1px">G00241</span>
+                    <span style="position: absolute;top: 85px;left: 1px">G00243</span>
+                    <span style="position: absolute;top: 106px;left: 1px">G00248</span>
+                    <span style="position: absolute;top: 127px;left: 1px">G00249</span>
+                    <span style="position: absolute;top: 148px;left: 1px">G00251</span>
+                    <span style="position: absolute;top: 169px;left: 1px">G00253</span>
+                    <span style="position: absolute;top: 190px;left: 1px">G00255</span>
+                    <span style="position: absolute;top: 211px;left: 1px">G00256</span>
+                    <span style="position: absolute;top: 232px;left: 1px">G00274</span>
+                    <span style="position: absolute;top: 253px;left: 1px">G00278</span>
+                    <span style="position: absolute;top: 274px;left: 1px">G00280</span>
+                    <span style="position: absolute;top: 295px;left: 1px">G00281</span>
+                    <span style="position: absolute;top: 316px;left: 1px">G00321</span>
+                    <span style="position: absolute;top: 337px;left: 1px">G00330</span>
+                    <span style="position: absolute;top: 358px;left: 1px">G00331</span>
+                    <span style="position: absolute;top: 379px;left: 1px">G00337</span>
+                    <span style="position: absolute;top: 400px;left: 1px">G00340</span>
+                    <span style="position: absolute;top: 421px;left: 1px">G00365</span>
+                    <span style="position: absolute;top: 442px;left: 1px">G00375</span>
+                    <span style="position: absolute;top: 463px;left: 1px">G00496</span>
+                    <span style="position: absolute;top: 484px;left: 1px">G00667</span>
+                    <span style="position: absolute;top: 505px;left: 1px">G00715</span>
+                    <span style="position: absolute;top: 526px;left: 1px">G00920</span>
+                    <span style="position: absolute;top: 547px;left: 1px">G01008</span>
+                    <span style="position: absolute;top: 568px;left: 1px">G01065</span>
+                    <span style="position: absolute;top: 589px;left: 1px">G01163</span>
+                    <span style="position: absolute;top: 610px;left: 1px">G01164</span>
+                    <span style="position: absolute;top: 631px;left: 1px">G01175</span>
+                    <span style="position: absolute;top: 652px;left: 1px">G01218</span>
+                    <span style="position: absolute;top: 673px;left: 1px">G01222</span>
+                    <span style="position: absolute;top: 694px;left: 1px">G01226</span>
+                    <span style="position: absolute;top: 715px;left: 1px">G01227</span>
+                    <span style="position: absolute;top: 736px;left: 1px">G01250</span>
+                    <span style="position: absolute;top: 757px;left: 1px">G01253</span>
+                    <span style="position: absolute;top: 778px;left: 1px">G01255</span>
+                    <span style="position: absolute;top: 799px;left: 1px">G01257</span>
+                    <span style="position: absolute;top: 820px;left: 1px">G01261</span>
+                    <span style="position: absolute;top: 841px;left: 1px">G01262</span>
+                    <span style="position: absolute;top: 862px;left: 1px">G01263</span>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+        <div id="spc" style="position: absolute;bottom: 12px;height: 110px;width: 360px;left: 12px;background-color:#f3f3f3;box-shadow:0 0 2px #2e2e2e;border-radius: 2px;">
+            <span style="position:absolute;height: 25px;width: 360px;background-color:#49b0f2a8;box-shadow:0 0 2px #3b3b3b;">SWMM Visualization Themes:</span>
+            <p style="position:absolute;top: 20px;left: 5px"><input type="checkbox" value="conduits" style="position: absolute;left: 75px">Links</p>
+            <select style="position: absolute;top: 65px;left: 5px;width: 70px">
+                <option>None</option>
+                <option>Flow</option>
+                <option>Depth</option>
+                <option>Velocity</option>
+                <option>Volume</option>
+                <option>Capacity</option>
+            </select>
+            <p style="position:absolute;top: 20px;left: 120px"><input type="checkbox" value="nodes" style="position: absolute;left: 56px">Nodes</p>
+            <select style="position: absolute;top: 65px;left: 120px;width: 70px">
+                <option>None</option>
+                <option>Depth</option>
+                <option>Volume</option>
+                <option>Head</option>
+                <option>Total inflow</option>
+                <option>Flooding</option>
+            </select>
+            <p style="position:absolute;top: 20px;left: 215px"><input type="checkbox" value="subcatchments" style="position: absolute;left: 123px">Subcatchments</p>
+            <select style="position: absolute;top: 65px;left: 215px;width: 70px">
+                <option>None</option>
+                <option>...</option>
+
+            </select>
+
+        </div>
+
+    </div>
+    <!-- TimeSlider container -->
+    <div id="timeslider" style="position: absolute;left: 150px;bottom: 150px;width:384px;border-radius: 4px;box-shadow: 0 0 30px #2e2e2e;display: none"></div>
+
+</div>
+<!-- menu container -->
+<div class="list" id="menu">
+    <ul>
+        <li>
+            <p class="title">SWMMModel Panel</p>
+            <ul class='list-se'>
+                <p class="title">SWMMModel Panel</p>
+                <li><p onclick="openSPP()">SWMM Parameters Panel</p></li>
+                <li><p onclick="openSNP()">SWMM Simulation Panel</p></li>
+            </ul>
+        </li>
+        <li>
+            <p class="title">SWMMData Panel</p>
+            <ul class='list-se'>
+                <p class="title">SWMMData Panel</p>
+                <li><p>Inputdata Service</p></li>
+                <li><p>Outdata Service</p></li>
+                <li><p>SWMM Parameters Service</p></li>
+            </ul>
+        </li>
+        <li>
+            <p class="title">SWMMKnowledge Panel</p>
+            <ul class='list-se'>
+                <p class="title">SWMMKnowledge Panel</p>
+                <li><p>Model Simulation Knowledge Service</p></li>
+                <li><p>Data Analysis Knowledge Service</p></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function($)
+    {
+        $('.list ul li p').clickdown();
+        $('.list-se p[class=title]').clickup();
+        $('.list>ul>li').ad();
+        console.log($().index())
+    });
+</script>
+<script type="text/javascript">
+
+    var ROOT_PATH = 'json/Ontologydiagram.json';
+
+    function update_graph( option )
+    {
+
+        if(option == "Ontology Diagram")
+        {
+
+            ROOT_PATH = 'json/Ontologydiagram.json';
+
+        }
+        else if(option == "Literature Information")
+        {
+
+            ROOT_PATH = 'json/Literatureinformation.json';
+
+        }
+        else if(option == "Parameter Meaning")
+        {
+
+            ROOT_PATH = 'json/Parametermeaning.json';
+
+        }
+        else if(option == "Modeling Scheme")
+        {
+
+            ROOT_PATH = 'json/Modelingscheme.json';
+
+        }
+        else if(option == "Simulation Scheme")
+        {
+
+            ROOT_PATH = 'json/Simulationscheme.json';
+
+        }
+        else if(option == "Result Evaluation")
+        {
+
+            ROOT_PATH = 'json/Resultevaluation.json';
+
+        }
+        else
+        {
+
+            ROOT_PATH = 'json/Ontologydiagram.json';
+
+        }
+
+        var chartDom01 = document.getElementById('kgs');
+        var myChart01 = echarts.init(chartDom01);
+        var option;
+
+        myChart01.showLoading();
+        $.get(ROOT_PATH, function (graph) {
+            myChart01.hideLoading();
+            graph.nodes.forEach(function (node) {
+                node.symbolSize = 12;
+            });
+            option = {
+                title: {
+                    text: 'The Prototype System-SWMM',
+                    subtext: 'Default layout',
+                    top: 'bottom',
+                    left: 'right'
+                },
+                tooltip: {},
+                legend: [{
+                    // selectedMode: 'single',
+                    textStyle:{
+                        color:'#ffffff'
+                    },
+                    data: graph.categories.map(function (a) {
+                        return a.name;
+
+                    })
+                }],
+                series: [
+                    {
+                        name: 'SWMM',
+                        type: 'graph',
+                        layout: 'force',
+                        data: graph.nodes,
+                        links: graph.links,
+                        categories: graph.categories,
+                        roam: true,
+                        label: {
+                            position: 'right'
+                        },
+                        force: {
+                            repulsion: 500
+                        }
+                    }
+                ]
+            };
+
+            myChart01.setOption(option);
+        });
+
+        option && myChart01.setOption(option);
+
+
+    }
+
+
+
+
+
+</script>
+<script type="text/javascript">
+    var chartDom = document.getElementById('echarts');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        title: {
+            text: 'OutputData charts',
+            left: 'center',
+            align: 'right'
+        },
+        grid: {
+            bottom: 80
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                animation: false,
+                label: {
+                    backgroundColor: '#505765'
+                }
+            }
+        },
+        legend: {
+            data: ['Flow', 'Capacity'],
+            left: 10
+        },
+        dataZoom: [
+            {
+                show: true,
+                realtime: true,
+                start: 65,
+                end: 85
+            },
+            {
+                type: 'inside',
+                realtime: true,
+                start: 65,
+                end: 85
+            }
+        ],
+        xAxis: [
+            {
+                type: 'category',
+                axisLabel:{color:'rgb(252,252,252)'},
+                boundaryGap: false,
+                axisLine: {onZero: false},
+                data: [
+                    '2021/6/27 7:00', '2021/6/27 7:05', '2021/6/27 7:10', '2021/6/27 7:15', '2021/6/27 7:20', '2021/6/27 7:25',
+                    '2021/6/27 7:30', '2021/6/27 7:35', '2021/6/27 7:40', '2021/6/27 7:45', '2021/6/27 7:50', '2021/6/27 7:55',
+                    '2021/6/27 8:00', '2021/6/27 8:05', '2021/6/27 8:10', '2021/6/27 8:15', '2021/6/27 8:20', '2021/6/27 8:25',
+                    '2021/6/27 8:30', '2021/6/27 8:35', '2021/6/27 8:40', '2021/6/27 8:45', '2021/6/27 8:50', '2021/6/27 8:55',
+                    '2021/6/27 9:00', '2021/6/27 9:05', '2021/6/27 9:10', '2021/6/27 9:15', '2021/6/27 9:20', '2021/6/27 9:25',
+                    '2021/6/27 9:30', '2021/6/27 9:35', '2021/6/27 9:40', '2021/6/27 9:45', '2021/6/27 9:50', '2021/6/27 9:55',
+                    '2021/6/27 10:00', '2021/6/27 10:05', '2021/6/27 10:10', '2021/6/27 10:15', '2021/6/27 10:20', '2021/6/27 10:25',
+                    '2021/6/27 10:30', '2021/6/27 10:35', '2021/6/27 10:40', '2021/6/27 10:45', '2021/6/27 10:50', '2021/6/27 10:55',
+                    '2021/6/27 11:00', '2021/6/27 11:05', '2021/6/27 11:10', '2021/6/27 11:15', '2021/6/27 11:20', '2021/6/27 11:25',
+                    '2021/6/27 11:30', '2021/6/27 11:35', '2021/6/27 11:40', '2021/6/27 11:45', '2021/6/27 11:50', '2021/6/27 11:55',
+                    '2021/6/27 12:00', '2021/6/27 12:05', '2021/6/27 12:10', '2021/6/27 12:15', '2021/6/27 12:20', '2021/6/27 12:25',
+                    '2021/6/27 12:30', '2021/6/27 12:35', '2021/6/27 12:40', '2021/6/27 12:45', '2021/6/27 12:50', '2021/6/27 12:55',
+                    '2021/6/27 13:00', '2021/6/27 13:05', '2021/6/27 13:10', '2021/6/27 13:15', '2021/6/27 13:20', '2021/6/27 13:25',
+                    '2021/6/27 13:30', '2021/6/27 13:35', '2021/6/27 13:40', '2021/6/27 13:45', '2021/6/27 13:50', '2021/6/27 13:55',
+                    '2021/6/27 14:00', '2021/6/27 14:05', '2021/6/27 14:10', '2021/6/27 14:15', '2021/6/27 14:20', '2021/6/27 14:25',
+                    '2021/6/27 14:30', '2021/6/27 14:35', '2021/6/27 14:40', '2021/6/27 14:45', '2021/6/27 14:50', '2021/6/27 14:55',
+                    '2021/6/27 15:00', '2021/6/27 15:05', '2021/6/27 15:10', '2021/6/27 15:15', '2021/6/27 15:20', '2021/6/27 15:25',
+                    '2021/6/27 15:30', '2021/6/27 15:35', '2021/6/27 15:40', '2021/6/27 15:45', '2021/6/27 15:50', '2021/6/27 15:55',
+                    '2021/6/27 16:00', '2021/6/27 16:05', '2021/6/27 16:10', '2021/6/27 16:15', '2021/6/27 16:20', '2021/6/27 16:25',
+                    '2021/6/27 16:30', '2021/6/27 16:35', '2021/6/27 16:40', '2021/6/27 16:45', '2021/6/27 16:50', '2021/6/27 16:55',
+                    '2021/6/27 17:00', '2021/6/27 17:05', '2021/6/27 17:10', '2021/6/27 17:15', '2021/6/27 17:20', '2021/6/27 17:25',
+                    '2021/6/27 17:30', '2021/6/27 17:35', '2021/6/27 17:40', '2021/6/27 17:45', '2021/6/27 17:50', '2021/6/27 17:55',
+                    '2021/6/27 18:00', '2021/6/27 18:05', '2021/6/27 18:10', '2021/6/27 18:15', '2021/6/27 18:20', '2021/6/27 18:25',
+                    '2021/6/27 18:30', '2021/6/27 18:35', '2021/6/27 18:40', '2021/6/27 18:45', '2021/6/27 18:50', '2021/6/27 18:55',
+                    '2021/6/27 19:00', '2021/6/27 19:05', '2021/6/27 19:10', '2021/6/27 19:15', '2021/6/27 19:20', '2021/6/27 19:25',
+                    '2021/6/27 19:30', '2021/6/27 19:35', '2021/6/27 19:40', '2021/6/27 19:45', '2021/6/27 19:50', '2021/6/27 19:55',
+                    '2021/6/27 20:00', '2021/6/27 20:05', '2021/6/27 20:10', '2021/6/27 20:15', '2021/6/27 20:20', '2021/6/27 20:25',
+                    '2021/6/27 20:30', '2021/6/27 20:35', '2021/6/27 20:40', '2021/6/27 20:45', '2021/6/27 20:50', '2021/6/27 20:55',
+                    '2021/6/27 21:00', '2021/6/27 21:05', '2021/6/27 21:10', '2021/6/27 21:15', '2021/6/27 21:20', '2021/6/27 21:25',
+                    '2021/6/27 21:30', '2021/6/27 21:35', '2021/6/27 21:40', '2021/6/27 21:45', '2021/6/27 21:50', '2021/6/27 21:55',
+                    '2021/6/27 22:00', '2021/6/27 22:05', '2021/6/27 22:10', '2021/6/27 22:15', '2021/6/27 22:20', '2021/6/27 22:25',
+                    '2021/6/27 22:30', '2021/6/27 22:35', '2021/6/27 22:40', '2021/6/27 22:45', '2021/6/27 22:50', '2021/6/27 22:55',
+                    '2021/6/27 23:00', '2021/6/27 23:05', '2021/6/27 23:10', '2021/6/27 23:15', '2021/6/27 23:20', '2021/6/27 23:25',
+                    '2021/6/27 23:30', '2021/6/27 23:35', '2021/6/27 23:40', '2021/6/27 23:45', '2021/6/27 23:50', '2021/6/27 23:55',
+                    '2021/6/28 0:00', '2021/6/28 0:05', '2021/6/28 0:10', '2021/6/28 0:15', '2021/6/28 0:20', '2021/6/28 0:25',
+                    '2021/6/28 0:30', '2021/6/28 0:35', '2021/6/28 0:40', '2021/6/28 0:45', '2021/6/28 0:50', '2021/6/28 0:55',
+                    '2021/6/28 1:00', '2021/6/28 1:05', '2021/6/28 1:10', '2021/6/28 1:15', '2021/6/28 1:20', '2021/6/28 1:25',
+                    '2021/6/28 1:30', '2021/6/28 1:35', '2021/6/28 1:40', '2021/6/28 1:45', '2021/6/28 1:50', '2021/6/28 1:55',
+                    '2021/6/28 2:00', '2021/6/28 2:05', '2021/6/28 2:10', '2021/6/28 2:15', '2021/6/28 2:20', '2021/6/28 2:25',
+                    '2021/6/28 2:30', '2021/6/28 2:35', '2021/6/28 2:40', '2021/6/28 2:45', '2021/6/28 2:50', '2021/6/28 2:55',
+                    '2021/6/28 3:00', '2021/6/28 3:05', '2021/6/28 3:10', '2021/6/28 3:15', '2021/6/28 3:20', '2021/6/28 3:25',
+                    '2021/6/28 3:30', '2021/6/28 3:35', '2021/6/28 3:40', '2021/6/28 3:45', '2021/6/28 3:50', '2021/6/28 3:55',
+                    '2021/6/28 4:00', '2021/6/28 4:05', '2021/6/28 4:10', '2021/6/28 4:15', '2021/6/28 4:20', '2021/6/28 4:25',
+                    '2021/6/28 4:30', '2021/6/28 4:35', '2021/6/28 4:40', '2021/6/28 4:45', '2021/6/28 4:50', '2021/6/28 4:55',
+                    '2021/6/28 5:00'
+                ].map(function (str) {
+                    return str.replace(' ', '\n');
+                })
+            }
+        ],
+        yAxis: [
+            {
+                axisLabel:{color:'rgb(252,252,252)'},
+                name: 'Flow(m³/s)',
+                type: 'value',
+                max: 0.2
+            },
+            {
+                axisLabel:{color:'rgb(252,252,252)'},
+                name: 'Capacity',
+                nameLocation: 'start',
+                max: 1,
+                type: 'value',
+                inverse: true
+            }
+        ],
+        series: [
+            {
+                name: 'Flow',
+                type: 'line',
+                areaStyle: {},
+                lineStyle: {
+                    width: 1
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                markArea: {
+                    silent: true,
+                    itemStyle: {
+                        opacity: 0.3
+                    },
+                    data: [[{
+                        xAxis: '2009/9/12\n7:00'
+                    }, {
+                        xAxis: '2009/9/22\n7:00'
+                    }]]
+                },
+                data: [
+                    //管道数据 2880
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0.00055,
+                    0.00185,
+                    0.00287,
+                    0.00351,
+                    0.00392,
+                    0.00423,
+                    0.0045,
+                    0.00473,
+                    0.00495,
+                    0.00514,
+                    0.00531,
+                    0.00546,
+                    0.00902,
+                    0.01143,
+                    0.01286,
+                    0.0137,
+                    0.01432,
+                    0.01477,
+                    0.01511,
+                    0.01537,
+                    0.01557,
+                    0.01572,
+                    0.01583,
+                    0.01592,
+                    0.03069,
+                    0.03787,
+                    0.04115,
+                    0.04304,
+                    0.04427,
+                    0.04503,
+                    0.04553,
+                    0.04585,
+                    0.04605,
+                    0.04618,
+                    0.04626,
+                    0.04631,
+                    0.03325,
+                    0.02797,
+                    0.02565,
+                    0.02435,
+                    0.02358,
+                    0.02311,
+                    0.02277,
+                    0.02253,
+                    0.02237,
+                    0.02226,
+                    0.02218,
+                    0.02213,
+                    0.02044,
+                    0.01957,
+                    0.01917,
+                    0.01894,
+                    0.01879,
+                    0.01869,
+                    0.01862,
+                    0.01857,
+                    0.01853,
+                    0.01851,
+                    0.01849,
+                    0.01848,
+                    0.01166,
+                    0.00791,
+                    0.00601,
+                    0.00485,
+                    0.00411,
+                    0.00356,
+                    0.00317,
+                    0.00286,
+                    0.00263,
+                    0.00245,
+                    0.0023,
+                    0.00218,
+                    0.00175,
+                    0.00136,
+                    0.00109,
+                    0.0009,
+                    0.00075,
+                    0.00063,
+                    0.00053,
+                    0.00045,
+                    0.00039,
+                    0.00033,
+                    0.00029,
+                    0.00025,
+                    0.00031,
+                    0.00045,
+                    0.00057,
+                    0.00067,
+                    0.00073,
+                    0.00078,
+                    0.00081,
+                    0.00083,
+                    0.00085,
+                    0.00086,
+                    0.00087,
+                    0.00088,
+                    0.00504,
+                    0.00896,
+                    0.01105,
+                    0.01246,
+                    0.01346,
+                    0.01422,
+                    0.01481,
+                    0.01527,
+                    0.01562,
+                    0.01588,
+                    0.01608,
+                    0.01623,
+                    0.01204,
+                    0.0097,
+                    0.00855,
+                    0.00787,
+                    0.0074,
+                    0.00709,
+                    0.00685,
+                    0.00667,
+                    0.00654,
+                    0.00643,
+                    0.00635,
+                    0.00628,
+                    0.00475,
+                    0.00368,
+                    0.00305,
+                    0.00262,
+                    0.00235,
+                    0.00213,
+                    0.00197,
+                    0.00184,
+                    0.00173,
+                    0.00165,
+                    0.00158,
+                    0.00152,
+                    0.00137,
+                    0.00124,
+                    0.00113,
+                    0.00105,
+                    0.00099,
+                    0.00094,
+                    0.0009,
+                    0.00087,
+                    0.00084,
+                    0.00081,
+                    0.00079,
+                    0.00077,
+                    0.00073,
+                    0.0007,
+                    0.00067,
+                    0.00065,
+                    0.00063,
+                    0.00061,
+                    0.0006,
+                    0.00058,
+                    0.00057,
+                    0.00056,
+                    0.00055,
+                    0.00055,
+                    0.00046,
+                    0.00037,
+                    0.0003,
+                    0.00024,
+                    0.0002,
+                    0.00017,
+                    0.00015,
+                    0.00013,
+                    0.00011,
+                    0.0001,
+                    0.00009,
+                    0.00009,
+                    0.00008,
+                    0.00006,
+                    0.00005,
+                    0.00005,
+                    0.00004,
+                    0.00004,
+                    0.00003,
+                    0.00003,
+                    0.00002,
+                    0.00002,
+                    0.00002,
+                    0.00002,
+                    0.00002,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0.00001,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+
+
+                ]
+            },
+            {
+                name: 'Capacity',
+                type: 'line',
+                yAxisIndex: 1,
+                areaStyle: {},
+                lineStyle: {
+                    width: 1
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                markArea: {
+                    silent: true,
+                    itemStyle: {
+                        opacity: 0.3
+                    },
+                    data: [
+                        [{
+                            xAxis: '2009/9/10\n7:00'
+                        }, {
+                            xAxis: '2009/9/20\n7:00'
+                        }]
+                    ]
+                },
+                data: [
+                    //降雨数据 2880,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0.03,
+                    0.05,
+                    0.07,
+                    0.07,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.09,
+                    0.09,
+                    0.09,
+                    0.11,
+                    0.13,
+                    0.13,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.21,
+                    0.23,
+                    0.24,
+                    0.24,
+                    0.24,
+                    0.25,
+                    0.25,
+                    0.25,
+                    0.25,
+                    0.25,
+                    0.25,
+                    0.25,
+                    0.21,
+                    0.19,
+                    0.19,
+                    0.18,
+                    0.18,
+                    0.18,
+                    0.18,
+                    0.17,
+                    0.17,
+                    0.17,
+                    0.17,
+                    0.17,
+                    0.17,
+                    0.16,
+                    0.16,
+                    0.16,
+                    0.16,
+                    0.16,
+                    0.16,
+                    0.16,
+                    0.16,
+                    0.16,
+                    0.16,
+                    0.16,
+                    0.12,
+                    0.11,
+                    0.09,
+                    0.08,
+                    0.08,
+                    0.07,
+                    0.07,
+                    0.06,
+                    0.06,
+                    0.06,
+                    0.06,
+                    0.06,
+                    0.05,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.02,
+                    0.02,
+                    0.02,
+                    0.02,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.09,
+                    0.11,
+                    0.12,
+                    0.13,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.14,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.13,
+                    0.11,
+                    0.11,
+                    0.11,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.09,
+                    0.08,
+                    0.07,
+                    0.07,
+                    0.06,
+                    0.06,
+                    0.06,
+                    0.05,
+                    0.05,
+                    0.05,
+                    0.05,
+                    0.05,
+                    0.05,
+                    0.05,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.04,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.03,
+                    0.02,
+                    0.02,
+                    0.02,
+                    0.02,
+                    0.02,
+                    0.02,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0.01,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+
+
+
+                ]
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+
+</script>
+
+
+
+</body>
+</html>

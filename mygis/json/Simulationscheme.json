@@ -1,0 +1,263 @@
+{
+    "nodes": [
+
+      {
+        "id": "2",
+        "name": "Time Steps",
+        "symbolSize": 6.323809333333333,
+        "x": -212.76357,
+        "y": 245.29176,
+        "value": "5min",
+        "category": 1
+      },
+      {
+        "id": "3",
+        "name": "Process Models",
+        "symbolSize": 6.323809333333333,
+        "x": -242.82404,
+        "y": 235.26283,
+        "value": "Rainfall／Runoff & Flow Routing",
+        "category": 1
+      },
+
+      {
+        "id": "10",
+        "name": "Routing Model",
+        "symbolSize": 2.6666666666666665,
+        "x": -89.34107,
+        "y": 234.56128,
+        "value": "Kinematic Wave",
+        "category": 1
+      },
+      {
+        "id": "11",
+        "name": "Simulation options",
+        "symbolSize": 66.66666666666667,
+        "x": -87.93029,
+        "y": -6.8120565,
+        "value": "",
+        "category": 1
+      },
+      {
+        "id": "12",
+        "name": "Infiltration Model",
+        "symbolSize": 4.495239333333333,
+        "x": -339.77908,
+        "y": -184.69139,
+        "value": "Green-Ampt",
+        "category": 1
+      },
+      {
+        "id": "20",
+        "name": "Link",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "One of the three basic visualization objects simulated by SWMM.",
+        "category": 0
+      },      {
+        "id": "21",
+        "name": "Flow (flow units)",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "The amount of stormwater passing through the link per unit time.",
+        "category": 0
+      },      {
+        "id": "22",
+        "name": "Depth (ft or m)",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "The average depth of stormwater passing through the link per unit time.",
+        "category": 0
+      },      {
+        "id": "23",
+        "name": "Velocity(ft/sec or m/sec)",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "The length of stormwater passing through the link per unit time.",
+        "category": 0
+      },      {
+        "id": "24",
+        "name": "Capacity",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "The drainage capacity of the link (ratio of water depth to full water depth).",
+        "category": 0
+      },      {
+        "id": "25",
+        "name": "Junction",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "One of the three basic visualization objects simulated by SWMM.",
+        "category": 2
+      },      {
+        "id": "26",
+        "name": "Depth",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "-",
+        "category": 2
+      },      {
+        "id": "27",
+        "name": "Volume",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "-",
+        "category": 2
+      },      {
+        "id": "28",
+        "name": "Total inflow",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "-",
+        "category": 2
+      },      {
+        "id": "29",
+        "name": "Flooding",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "-",
+        "category": 2
+      },     {
+        "id": "30",
+        "name": "Head",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "-",
+        "category": 2
+      },   {
+        "id": "31",
+        "name": "Subcatchment",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "One of the three basic visualization objects simulated by SWMM.",
+        "category": 3
+      },  {
+        "id": "32",
+        "name": "rainfall rate",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "-",
+        "category": 3
+      },{
+        "id": "33",
+        "name": "infiltration loss",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "-",
+        "category": 3
+      },{
+        "id": "34",
+        "name": "runoff flow",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "-",
+        "category": 3
+      },{
+        "id": "35",
+        "name": "runoff flow",
+        "symbolSize": 19.12381,
+        "x": -266.82776,
+        "y": 299.6904,
+        "value": "-",
+        "category": 3
+      }
+    ],
+    "links": [
+      {
+        "source": "2",
+        "target": "11"
+      },
+      {
+        "source": "3",
+        "target": "11"
+      },
+      {
+        "source": "10",
+        "target": "11"
+      },
+      {
+        "source": "12",
+        "target": "11"
+      },
+      {
+        "source": "21",
+        "target": "20"
+      },      {
+        "source": "22",
+        "target": "20"
+      },  {
+        "source": "23",
+        "target": "20"
+      },  {
+        "source": "24",
+        "target": "20"
+      }
+    ,      {
+        "source": "11",
+        "target": "20"
+      },   {
+        "source": "26",
+        "target": "25"
+      }, {
+        "source": "27",
+        "target": "25"
+      }, {
+        "source": "28",
+        "target": "25"
+      }, {
+        "source": "29",
+        "target": "25"
+      }, {
+        "source": "30",
+        "target": "25"
+      }, {
+        "source": "11",
+        "target": "25"
+      },{
+        "source": "32",
+        "target": "31"
+      },{
+        "source": "33",
+        "target": "31"
+      },{
+        "source": "34",
+        "target": "31"
+      },{
+        "source": "35",
+        "target": "31"
+      },{
+        "source": "11",
+        "target": "31"
+      }
+    ],
+    "categories": [
+
+      {
+        "name": "Link Simulation Results"
+      },
+      {
+        "name": "Simulation Options"
+      },
+      {
+        "name": "Junction Simulation Results"
+      },
+      {
+        "name": "Subcatchment Simulation Results"
+      }
+    ]
+  }

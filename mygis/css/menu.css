@@ -1,0 +1,95 @@
+.list{
+    width : 300px;
+    padding: 0;
+    margin : 0;
+    background: linear-gradient(to left, #14d7ea, #14d7ea) left top no-repeat,
+    linear-gradient(to bottom, #14d7ea, #14d7ea) left top no-repeat,
+    linear-gradient(to left, #14d7ea, #14d7ea) right top no-repeat,
+    linear-gradient(to bottom, #14d7ea, #14d7ea) right top no-repeat,
+    linear-gradient(to left, #14d7ea, #14d7ea) left bottom no-repeat,
+    linear-gradient(to bottom, #14d7ea, #14d7ea) left bottom no-repeat,
+    linear-gradient(to left, #14d7ea, #14d7ea) right bottom no-repeat,
+    linear-gradient(to left, #14d7ea, #14d7ea) right bottom no-repeat;
+    background-size: 2px 30px, 30px 2px, 2px 30px, 30px 2px,2px 30px, 30px 2px, 2px 30px, 30px 2px;
+}
+.list ul{
+    list-style: none;
+    padding: 0;
+    margin : 0;
+}
+.list>ul>li{
+    width        : 100%;
+    border-bottom: 1px solid #666;
+    -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;
+    -o-transition: .3s ease;
+    transition: .3s ease;
+    padding: 0;
+    margin : 0;
+}
+.list>ul>li p[class=title]{
+    width      : 100%;
+    text-align : center;
+    background : rgb(110 110 110);
+    opacity: 40%;
+    height     : 50px;
+    line-height: 50px;
+    padding    : 0;
+    border     : none;
+    position   : relative;
+    font-size  : 15px;
+    color: #14d7ea;
+    font-weight: bold;
+    padding: 0;
+    margin : 0;
+}
+.list>ul>li p[class=title]>span{
+    position: absolute;
+    right: 10%;
+    padding: 0;
+    margin : 0;
+}
+.list-se{
+    overflow: hidden;
+    display: none;
+    padding: 0;
+    margin : 0;
+}
+.list-se>p{
+    background: #444 !important;
+    color     :#ee4977;
+    padding: 0;
+    margin : 0;
+}
+.list-se>li{
+    position: relative;
+    right   : -100%;
+    -webkit-transition: right .5s;
+    -moz-transition   : right .5s;
+    -o-transition     : right .5s;
+    transition        : right .5s;
+    padding: 0;
+    margin : 0;
+}
+.list-se>li>p{
+    background  : #3b3b3b;
+    color       : #f0f0f0;
+    height      : 50px;
+    -webkit-box-sizing :border-box;
+    box-sizing :border-box;
+    padding-left: 10px;
+    line-height : 50px;
+    border-left : 5px solid #3b3b3b;
+    -webkit-transition   : border .5s;
+    transition  : border .5s;
+    -webkit-transition   : background .3s;
+    transition  : background .3s;
+    padding: 0;
+    margin : 0;
+}
+.list-se>li>p:hover{
+    border-color: #14d7ea;
+    background  : #5b5b5b;
+    padding: 0;
+    margin : 0;
+}

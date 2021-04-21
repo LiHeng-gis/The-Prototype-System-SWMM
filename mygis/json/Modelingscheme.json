@@ -1,0 +1,642 @@
+{
+  "nodes": [
+    {
+      "id": "0",
+      "name": "Links",
+      "symbolSize": 19.12381,
+      "x": -266.82776,
+      "y": 299.6904,
+      "value": "One of the three basic visualization objects simulated by SWMM.",
+      "category": 0
+    },
+    {
+      "id": "1",
+      "name": "Shape",
+      "symbolSize": 2.6666666666666665,
+      "x": -418.08344,
+      "y": 446.8853,
+      "value": "CIRCULAR",
+      "category": 0
+    },
+    {
+      "id": "2",
+      "name": "Max. Depth",
+      "symbolSize": 6.323809333333333,
+      "x": -212.76357,
+      "y": 245.29176,
+      "value": "1.2",
+      "category": 1
+    },
+    {
+      "id": "3",
+      "name": "Invert El",
+      "symbolSize": 6.323809333333333,
+      "x": -242.82404,
+      "y": 235.26283,
+      "value": "0",
+      "category": 1
+    },
+    {
+      "id": "4",
+      "name": "Max. Depth",
+      "symbolSize": 2.6666666666666665,
+      "x": -379.30386,
+      "y": 429.06424,
+      "value": "1.2",
+      "category": 0
+    },
+    {
+      "id": "5",
+      "name": "Roughness",
+      "symbolSize": 2.6666666666666665,
+      "x": -417.26337,
+      "y": 406.03506,
+      "value": "0.015",
+      "category": 0
+    },
+    {
+      "id": "6",
+      "name": "Material",
+      "symbolSize": 2.6666666666666665,
+      "x": -332.6012,
+      "y": 485.16974,
+      "value": "PLASTIC",
+      "category": 0
+    },
+    {
+      "id": "7",
+      "name": "Length",
+      "symbolSize": 2.6666666666666665,
+      "x": -382.69568,
+      "y": 475.09113,
+      "value": "30",
+      "category": 0
+    },
+    {
+      "id": "8",
+      "name": "Inlet",
+      "symbolSize": 2.6666666666666665,
+      "x": -320.384,
+      "y": 387.17325,
+      "value": "-",
+      "category": 0
+    },
+    {
+      "id": "9",
+      "name": "Outlet",
+      "symbolSize": 2.6666666666666665,
+      "x": -344.39832,
+      "y": 451.16772,
+      "value": "-",
+      "category": 0
+    },
+    {
+      "id": "10",
+      "name": "Inflows",
+      "symbolSize": 2.6666666666666665,
+      "x": -89.34107,
+      "y": 234.56128,
+      "value": "0",
+      "category": 1
+    },
+    {
+      "id": "11",
+      "name": "Junctions",
+      "symbolSize": 66.66666666666667,
+      "x": -87.93029,
+      "y": -6.8120565,
+      "value": "One of the three basic visualization objects simulated by SWMM.",
+      "category": 1
+    },
+    {
+      "id": "12",
+      "name": "Treatment",
+      "symbolSize": 4.495239333333333,
+      "x": -339.77908,
+      "y": -184.69139,
+      "value": "0",
+      "category": 1
+    },
+    {
+      "id": "13",
+      "name": "Ponded Area",
+      "symbolSize": 2.6666666666666665,
+      "x": -194.31313,
+      "y": 178.55301,
+      "value": "0",
+      "category": 1
+    },
+    {
+      "id": "14",
+      "name": "Surcharge Depth",
+      "symbolSize": 2.6666666666666665,
+      "x": -158.05168,
+      "y": 201.99768,
+      "value": "0",
+      "category": 1
+    },
+    {
+      "id": "15",
+      "name": "Initial Depth",
+      "symbolSize": 2.6666666666666665,
+      "x": -127.701546,
+      "y": 242.55057,
+      "value": "0",
+      "category": 1
+    },
+    {
+      "id": "16",
+      "name": "Width",
+      "symbolSize": 17.295237333333333,
+      "x": -385.2226,
+      "y": -393.5572,
+      "value": "√Area²",
+      "category": 2
+    },
+    {
+      "id": "17",
+      "name": "% Slope",
+      "symbolSize": 13.638097333333334,
+      "x": -516.55884,
+      "y": -393.98975,
+      "value": "0.5",
+      "category": 2
+    },
+    {
+      "id": "18",
+      "name": "% Imperv",
+      "symbolSize": 13.638097333333334,
+      "x": -464.79382,
+      "y": -493.57944,
+      "value": "50%",
+      "category": 2
+    },
+    {
+      "id": "19",
+      "name": "N-Imperv",
+      "symbolSize": 13.638097333333334,
+      "x": -515.1624,
+      "y": -456.9891,
+      "value": "0.01",
+      "category": 2
+    },
+    {
+      "id": "20",
+      "name": "N-Perv",
+      "symbolSize": 13.638097333333334,
+      "x": -408.12122,
+      "y": -464.5048,
+      "value": "0.10",
+      "category": 2
+    },
+    {
+      "id": "21",
+      "name": "Dstore-Imperv",
+      "symbolSize": 13.638097333333334,
+      "x": -456.44113,
+      "y": -425.13303,
+      "value": "0.05",
+      "category": 2
+    },
+    {
+      "id": "22",
+      "name": "Dstore-Perv",
+      "symbolSize": 13.638097333333334,
+      "x": -459.1107,
+      "y": -362.5133,
+      "value": "0.05",
+      "category": 2
+    },
+    {
+      "id": "23",
+      "name": "Subcatchments",
+      "symbolSize": 28.266666666666666,
+      "x": -313.42786,
+      "y": -289.44803,
+      "value": "One of the three basic visualization objects simulated by SWMM.",
+      "category": 2
+    },
+
+    {
+      "id": "29",
+      "name": "Defaults",
+      "symbolSize": 15.466666666666667,
+      "x": -385.6842,
+      "y": -20.206686,
+      "value": "SWMM Model default parameters setting.",
+      "category": 3
+    },
+    {
+      "id": "30",
+      "name": "% Zero-Imperv",
+      "symbolSize": 4.495239333333333,
+      "x": -403.92447,
+      "y": -197.69823,
+      "value": "25",
+      "category": 2
+    },
+    {
+      "id": "31",
+      "name": "Subarea Routing",
+      "symbolSize": 8.152382000000001,
+      "x": -281.4253,
+      "y": -158.45137,
+      "value": "OUTLET",
+      "category": 2
+    },
+    {
+      "id": "32",
+      "name": "X-Coordinate",
+      "symbolSize": 2.6666666666666665,
+      "x": -122.41348,
+      "y": 210.37503,
+      "value": "-",
+      "category": 1
+    },
+    {
+      "id": "33",
+      "name": "Y-Coordinate",
+      "symbolSize": 4.495239333333333,
+      "x": -234.6001,
+      "y": -113.15067,
+      "value":"-",
+      "category": 1
+    },
+    {
+      "id": "34",
+      "name": "Infiltration Mode",
+      "symbolSize": 11.809524666666666,
+      "x": -387.84915,
+      "y": 58.7059,
+      "value": "GREEN_AMPT",
+      "category": 3
+    },
+    {
+      "id": "35",
+      "name": "Link Offsets",
+      "symbolSize": 11.809524666666666,
+      "x": -338.2307,
+      "y": 87.48405,
+      "value": "DEPTH",
+      "category": 3
+    },
+    {
+      "id": "36",
+      "name": "Routing Method",
+      "symbolSize": 11.809524666666666,
+      "x": -453.26874,
+      "y": 58.94648,
+      "value": "Kinematic Wave",
+      "category": 3
+    },
+    {
+      "id": "37",
+      "name": "Force Main Equation",
+      "symbolSize": 11.809524666666666,
+      "x": -386.44904,
+      "y": 140.05937,
+      "value":"Hazen-Williams",
+      "category": 3
+    },
+    {
+      "id": "38",
+      "name": "Flow Units",
+      "symbolSize": 11.809524666666666,
+      "x": -446.7876,
+      "y": 123.38005,
+      "value": "LPS",
+      "category": 3
+    },
+
+    {
+      "id": "72",
+      "name": "Material",
+      "symbolSize": 6.323809333333333,
+      "x": 40.942253,
+      "y": 113.78272,
+      "value": "PLASTIC",
+      "category": 1
+    }
+
+  ],
+  "links": [
+    {
+      "source": "1",
+      "target": "0"
+    },
+    {
+      "source": "2",
+      "target": "0"
+    }, {
+      "source": "3",
+      "target": "0"
+    },
+    {
+      "source": "3",
+      "target": "2"
+    },
+    {
+      "source": "4",
+      "target": "0"
+    },
+    {
+      "source": "5",
+      "target": "0"
+    },
+    {
+      "source": "6",
+      "target": "0"
+    },
+    {
+      "source": "7",
+      "target": "0"
+    },
+    {
+      "source": "8",
+      "target": "0"
+    },
+    {
+      "source": "9",
+      "target": "0"
+    },
+    {
+      "source": "11",
+      "target": "0"
+    },
+    {
+      "source": "11",
+      "target": "2"
+    },
+    {
+      "source": "11",
+      "target": "3"
+    },
+    {
+      "source": "11",
+      "target": "10"
+    },
+    {
+      "source": "12",
+      "target": "11"
+    },
+    {
+      "source": "13",
+      "target": "11"
+    },
+    {
+      "source": "14",
+      "target": "11"
+    },
+    {
+      "source": "15",
+      "target": "11"
+    },
+    {
+      "source": "17",
+      "target": "16"
+    },
+    {
+      "source": "18",
+      "target": "16"
+    },
+    {
+      "source": "18",
+      "target": "17"
+    },
+    {
+      "source": "19",
+      "target": "16"
+    },
+    {
+      "source": "19",
+      "target": "17"
+    },
+    {
+      "source": "19",
+      "target": "18"
+    },
+    {
+      "source": "20",
+      "target": "16"
+    },
+    {
+      "source": "20",
+      "target": "17"
+    },
+    {
+      "source": "20",
+      "target": "18"
+    },
+    {
+      "source": "20",
+      "target": "19"
+    },
+    {
+      "source": "21",
+      "target": "16"
+    },
+    {
+      "source": "21",
+      "target": "17"
+    },
+    {
+      "source": "21",
+      "target": "18"
+    },
+    {
+      "source": "21",
+      "target": "19"
+    },
+    {
+      "source": "21",
+      "target": "20"
+    },
+    {
+      "source": "22",
+      "target": "16"
+    },
+    {
+      "source": "22",
+      "target": "17"
+    },
+    {
+      "source": "22",
+      "target": "18"
+    },
+    {
+      "source": "22",
+      "target": "19"
+    },
+    {
+      "source": "22",
+      "target": "20"
+    },
+    {
+      "source": "22",
+      "target": "21"
+    },
+    {
+      "source": "23",
+      "target": "11"
+    },
+    {
+      "source": "23",
+      "target": "12"
+    },
+    {
+      "source": "23",
+      "target": "16"
+    },
+    {
+      "source": "23",
+      "target": "17"
+    },
+    {
+      "source": "23",
+      "target": "18"
+    },
+    {
+      "source": "23",
+      "target": "19"
+    },
+    {
+      "source": "23",
+      "target": "20"
+    },
+    {
+      "source": "23",
+      "target": "21"
+    },
+    {
+      "source": "23",
+      "target": "22"
+    },
+    {
+      "source": "29",
+      "target": "11"
+    },
+    {
+      "source": "29",
+      "target": "23"
+    },
+    {
+      "source": "30",
+      "target": "23"
+    },
+    {
+      "source": "31",
+      "target": "11"
+    },
+    {
+      "source": "31",
+      "target": "23"
+    },
+    {
+      "source": "31",
+      "target": "30"
+    },
+    {
+      "source": "32",
+      "target": "11"
+    },
+    {
+      "source": "33",
+      "target": "11"
+    },
+    {
+      "source": "34",
+      "target": "11"
+    },{
+      "source": "34",
+      "target": "29"
+    },{
+      "source": "35",
+      "target": "11"
+    },
+    {
+      "source": "35",
+      "target": "29"
+    },
+    {
+      "source": "35",
+      "target": "34"
+    },
+    {
+      "source": "36",
+      "target": "11"
+    },
+    {
+      "source": "36",
+      "target": "29"
+    },
+    {
+      "source": "36",
+      "target": "34"
+    },
+    {
+      "source": "36",
+      "target": "35"
+    },
+    {
+      "source": "37",
+      "target": "11"
+    },
+    {
+      "source": "37",
+      "target": "29"
+    },{
+      "source": "37",
+      "target": "34"
+    },
+    {
+      "source": "37",
+      "target": "35"
+    },
+    {
+      "source": "37",
+      "target": "36"
+    },
+    {
+      "source": "38",
+      "target": "11"
+    },
+    {
+      "source": "38",
+      "target": "29"
+    },
+    {
+      "source": "38",
+      "target": "34"
+    },
+    {
+      "source": "38",
+      "target": "35"
+    },
+    {
+      "source": "38",
+      "target": "36"
+    },
+    {
+      "source": "38",
+      "target": "37"
+    },
+    {
+      "source": "72",
+      "target": "11"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Link Parameters"
+    },
+    {
+      "name": "Junction Parameters"
+    },
+    {
+      "name": "Subcatchments Parameters"
+    },
+    {
+      "name": "others"
+    }
+  ]
+}
